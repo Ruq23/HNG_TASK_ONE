@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     const slackUsername = "Faruq"
     const backend = true
 
-    res.send(`{"slackUsername": ${slackUsername}, "backend": ${backend}, "age": ${age}, "bio": ${bio}}`)
+    res.send(`{"slackUsername": "${slackUsername}", "backend": ${backend}, "age": ${age}, "bio": "${bio}"}`)
 })
 
 app.listen(3000, () => {
