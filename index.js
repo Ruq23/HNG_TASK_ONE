@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    const age = '22'
+    const age = 22
     const bio = "I am a hardworking, articulate and ambitious individual, i am passionate about Web Development and i am excited to join the HNG Team."
     const slackUsername = "Faruq22"
     const backend = true
