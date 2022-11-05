@@ -45,6 +45,7 @@ app.get('/', (req, res) => {
         console.log(details.y)
         console.log(data)
         try {
+
           if (data == "addition") {
             result = details.x + details.y;
           } else if (data == "subtraction") {
@@ -55,11 +56,12 @@ app.get('/', (req, res) => {
             result = null;
           }
       
-          res.status(200).json({
-            slackUsername: "Faruq22",
-            result,
-            operation_type: details.operation_type,
-          });
+        //   res.status(200).json({
+        //     slackUsername: "Faruq22",
+        //     result,
+        //     operation_type: details.operation_type,
+        //   });
+          res.send(`{"slackUsername": "${"Faruq22"}", "result": ${result}, "operation_type: ${details.operation_type}}`)
         } catch (error) {
           console.log(error);
           res.status(404).json(error);
