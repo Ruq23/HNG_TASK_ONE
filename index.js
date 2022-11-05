@@ -2,10 +2,11 @@ const express = require('express')
 const app = express();
 const path = require('path')
 const cors = require('cors')
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+
+
+
 
 
 app.use(express.urlencoded({extended: true}));
@@ -30,28 +31,43 @@ app.get('/', (req, res) => {
 
     res.send(`{"slackUsername": "${slackUsername}", "backend": ${backend}, "age": ${age}, "bio": "${bio}"}`)
 })
+   
+    app.post("/", async (req, res) => {
+        const details = {
+          operation_type: req.body.operation_type,
+          x: parseInt (req.body.x),
+          y: parseInt(req.body.y),
+        };
+      
+        data = details.operation_type;
+
+        console.log(details.x)
+        console.log(details.y)
+        console.log(data)
+        try {
+          if (data == "addition") {
+            result = details.x + details.y;
+          } else if (data == "subtraction") {
+            result = details.x - details.y;
+          } else if (data == "multiplication") {
+            result = details.x * details.y;
+          } else if (data !== "addition" || "subtraction" || "multiplication") {
+            result = null;
+          }
+      
+          res.status(200).json({
+            slackUsername: "Faruq22",
+            result,
+            operation_type: details.operation_type,
+          });
+        } catch (error) {
+          console.log(error);
+          res.status(404).json(error);
+        }
+      });
+ 
 
 
-
-app.get('/calculator', (req, res) => {
-    res.render('calculator.ejs', { operation_type })
-})
-app.post('/calculator', (req, res) => {
-    const slackUsername = "Faruq22"
-    const { xinput, yinput, operation_type } = req.body
-    const x = (parseInt(xinput))
-    const y = (parseInt(yinput))
-    // console.log(typeof realx)
-    if(operation_type == 'addition') {
-        res.send(`{"slackUsername": "${slackUsername}", "result": ${x + y}, "operation_type: ${operation_type}}`)
-    }if(operation_type == 'subtraction') {
-        res.send(`{"slackUsername": "${slackUsername}", "result": ${x - y}, "operation_type: ${operation_type}}`)
-    }if(operation_type == 'multiplication') {
-        res.send(`{"slackUsername": "${slackUsername}", "result": ${x * y}, "operation_type: ${operation_type}}`)
-    }if(operation_type == 'division') {
-        res.send(`{"slackUsername": "${slackUsername}", "result": ${x / y}, "operation_type: ${operation_type}}`)
-    }
-})
 
 app.listen(3000, () => {
     console.log('Listening on Port 3000')
